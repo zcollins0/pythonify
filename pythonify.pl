@@ -14,4 +14,8 @@ open(my $ofh, '>', $outputFile);
 
 print $ofh "//'$inputFile' pythonified!\n";
 
+while (my $line = <$ifh>) {
+    print $ofh "$line";
+}
+
 close $ofh; close $ifh;
