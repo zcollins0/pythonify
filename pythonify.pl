@@ -9,13 +9,12 @@ if ((not defined $inputFile) or (not defined $outputFile)) {
     die "\nUsage: perl pythonify.pl <inputfile> <outputFile>";
 }
 
-open(my $ifh, '<:encoding(UTF-8)', $inputFile) or die "\nCould not open file '$inputFile'";
+open(my $ifh, '<', $inputFile) or die "\nCould not open file '$inputFile'";
+chomp (my @lines = <$ifh>);
+close $ifh;
+
 open(my $ofh, '>', $outputFile);
-
 print $ofh "//'$inputFile' pythonified!\n";
-
-while (my $line = <$ifh>) {
-    print $ofh "$line";
-}
-
-close $ofh; close $ifh;
+print $ofh join("\n", @lines);
+print $ofh "\n";
+close $ofh;
