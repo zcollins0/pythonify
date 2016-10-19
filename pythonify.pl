@@ -11,3 +11,7 @@ if ((not defined $inputFile) or (not defined $outputFile)) {
 
 open(my $ifh, '<:encoding(UTF-8)', $inputFile) or die "\nCould not open file '$inputFile'";
 open(my $ofh, '>', $outputFile);
+
+print $ofh "//'$inputFile' pythonified!\n";
+
+close $ofh; close $ifh;
