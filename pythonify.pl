@@ -20,6 +20,24 @@ for (my $i = 0; $i < @lines; $i++) {
     }
 }
 
+for (my $i = 0; $i < @lines; $i++) {
+    if ($lines[$i] =~ /\/\//) { next; }
+    my $lobindex = rindex($lines[$i], "{");
+    my $lcbindex = rindex($lines[$i], "}");
+    my $lscindex = rindex($lines[$i], ";");
+    if ($lobindex == -1 and $lcbindex == -1 and $lscindex == -1) { next; }
+    if ($lobindex == -1) { $lobindex = 10000; }
+    if ($lcbindex == -1) { $lcbindex = 10000; }
+    if ($lscindex == -1) { $lscindex = 10000; }
+    my $lindex = ($lobindex, $lcbindex)[$lobindex > $lcbindex];
+    $lindex = ($lindex, $lscindex)[$lindex > $lscindex];
+
+    if ($lindex == -1) { next; }
+    my $wallIndex = 80;
+    my $numSpaces = $wallIndex - length($lines[$i]);
+    for (my $k = 0; $k < $numSpaces; $k++) { substr($lines[$i], $lindex, 0) = " "; }
+}
+
 open(my $ofh, '>', $outputFile);
 print $ofh "//'$inputFile' pythonified!\n";
 print $ofh join("\n", @lines);
