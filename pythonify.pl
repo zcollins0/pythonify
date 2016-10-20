@@ -34,7 +34,7 @@ for (my $i = 0; $i < @lines; $i++) {
 
     if ($lindex == -1) { next; }
     my $wallIndex = 80;
-    my $numSpaces = $wallIndex - length($lines[$i]);
+    my $numSpaces = $wallIndex - $lindex;
     for (my $k = 0; $k < $numSpaces; $k++) { substr($lines[$i], $lindex, 0) = " "; }
 }
 
