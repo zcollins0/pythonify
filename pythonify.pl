@@ -36,8 +36,9 @@ my $indentationLevel = 0;
 for (my $i = 0; $i < @lines; $i++) {
     # trim whitespace from both ends
     $lines[$i] =~ s/^\s+|\s+$//g;
-    my $nextIndentationLevel = ($lines[$i] =~ tr/\{//) - ($lines[$i] =~ tr/\{//);
-    for (my $k = 0; $k < @lines; $k++) { substr($lines[$i], 0, 0) = "    "; }
+    my $nextIndentationLevel = ($lines[$i] =~ tr/\{//) - ($lines[$i] =~ tr/\}//);
+    for (my $k = 0; $k < $indentationLevel; $k++) { substr($lines[$i], 0, 0) = "    "; }
+    print "$nextIndentationLevel\n";
     $indentationLevel += $nextIndentationLevel;
 }
 
