@@ -18,4 +18,6 @@ int main()                                                                      
     // Wait for threads to finish (they never do)
     first.join()                                                                ;
     second.join()                                                               ;
+    if (1)                                                                      {
+ int x = 0;                                                                     };
     return 0                                                                    ;}

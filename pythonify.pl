@@ -13,6 +13,7 @@ open(my $ifh, '<', $inputFile) or die "\nCould not open file '$inputFile'";
 chomp (my @lines = <$ifh>);
 close $ifh;
 
+# find brackets and semicolons on their own lines
 for (my $i = 0; $i < @lines; $i++) {
     if ($lines[$i] =~ m/^\s*\{\s*$/ or $lines[$i] =~ m/^\s*\}\s*$/ or $lines[$i] =~ m/^\s*\};\s*$/) {
         $lines[$i - 1] = $lines[$i - 1] . $lines[$i];
@@ -20,6 +21,18 @@ for (my $i = 0; $i < @lines; $i++) {
     }
 }
 
+# sort out brackets that don't end the line
+for (my $i = 0; $i < @lines; $i++) {
+    my $lindex = rindex($lines[$i], "{");
+    if ($lindex > -1 and $lindex != (length($lines[$i]) - 1)) {
+        my $lstring = substr($lines[$i], $lindex + 1);
+        print "lstring$lstring arrayatindex$lines[$i]\n";
+        splice(@lines, $i + 1, 0, $lstring);
+        $lines[$i] = substr($lines[$i], 0, length($lines[$i]) - length($lstring));
+    }
+}
+
+# build the wall
 for (my $i = 0; $i < @lines; $i++) {
     if ($lines[$i] =~ /\/\//) { next; }
     my $lobindex = rindex($lines[$i], "{");
