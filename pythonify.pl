@@ -32,6 +32,11 @@ for (my $i = 0; $i < @lines; $i++) {
     }
 }
 
+#fix indentation
+for (my $i = 0; $i < @lines; $i++) {
+    # track brackets, keep track of indentation level
+}
+
 # build the wall
 for (my $i = 0; $i < @lines; $i++) {
     if ($lines[$i] =~ /\/\//) { next; }
