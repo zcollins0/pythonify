@@ -26,15 +26,19 @@ for (my $i = 0; $i < @lines; $i++) {
     my $lindex = rindex($lines[$i], "{");
     if ($lindex > -1 and $lindex != (length($lines[$i]) - 1)) {
         my $lstring = substr($lines[$i], $lindex + 1);
-        print "lstring$lstring arrayatindex$lines[$i]\n";
         splice(@lines, $i + 1, 0, $lstring);
         $lines[$i] = substr($lines[$i], 0, length($lines[$i]) - length($lstring));
     }
 }
 
 #fix indentation
+my $indentationLevel = 0;
 for (my $i = 0; $i < @lines; $i++) {
-    # track brackets, keep track of indentation level
+    # trim whitespace from both ends
+    $lines[$i] =~ s/^\s+|\s+$//g;
+    my $nextIndentationLevel = ($lines[$i] =~ tr/\{//) - ($lines[$i] =~ tr/\{//);
+    for (my $k = 0; $k < @lines; $k++) { substr($lines[$i], 0, 0) = "    "; }
+    $indentationLevel += $nextIndentationLevel;
 }
 
 # build the wall
