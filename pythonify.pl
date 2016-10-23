@@ -69,8 +69,6 @@ for (my $i = 0; $i < @lines; $i++) {
     my $lindex = ($lobindex, $lcbindex)[$lobindex > $lcbindex];
     $lindex = ($lindex, $lscindex)[$lindex > $lscindex];
 
-    if ($lindex == -1) { next; }
-    
     # build a wall
     my $wallIndex = 80;
     my $numSpaces = $wallIndex - $lindex;
