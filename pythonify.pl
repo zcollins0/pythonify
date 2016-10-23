@@ -43,24 +43,35 @@ for (my $i = 0; $i < @lines; $i++) {
     my $isComment = substr($lines[$i], 0, 1) eq "//";
     my $nextIndentationLevel = 0;
     if (!$isComment) { $nextIndentationLevel = ($lines[$i] =~ tr/\{//) - ($lines[$i] =~ tr/\}//); }
+    
+    # we use 4 spaces, like all civilized people
     for (my $k = 0; $k < $indentationLevel; $k++) { substr($lines[$i], 0, 0) = "    "; }
     if (!$isComment) { $indentationLevel += $nextIndentationLevel; }
 }
 
 # build the wall
 for (my $i = 0; $i < @lines; $i++) {
+    # don't mess with comments
     if ($lines[$i] =~ /\/\//) { next; }
+
+    # get the indices of the three characters we care about
     my $lobindex = rindex($lines[$i], "{");
     my $lcbindex = rindex($lines[$i], "}");
     my $lscindex = rindex($lines[$i], ";");
     if ($lobindex == -1 and $lcbindex == -1 and $lscindex == -1) { next; }
+    
+    # we are going to take the minimum of these three, so can't have any -1s floating around
     if ($lobindex == -1) { $lobindex = 10000; }
     if ($lcbindex == -1) { $lcbindex = 10000; }
     if ($lscindex == -1) { $lscindex = 10000; }
+    
+    # get minimum
     my $lindex = ($lobindex, $lcbindex)[$lobindex > $lcbindex];
     $lindex = ($lindex, $lscindex)[$lindex > $lscindex];
 
     if ($lindex == -1) { next; }
+    
+    # build a wall
     my $wallIndex = 80;
     my $numSpaces = $wallIndex - $lindex;
     for (my $k = 0; $k < $numSpaces; $k++) { substr($lines[$i], $lindex, 0) = " "; }
