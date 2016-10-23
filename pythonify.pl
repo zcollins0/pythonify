@@ -5,10 +5,12 @@ use warnings;
 
 my ($inputFile, $outputFile) = @ARGV;
 
+# if we didn't get the right arguments, then exit
 if ((not defined $inputFile) or (not defined $outputFile)) {
     die "\nUsage: perl pythonify.pl <inputfile> <outputFile>";
 }
 
+# inputfile doesn' exist then exit
 open(my $ifh, '<', $inputFile) or die "\nCould not open file '$inputFile'";
 chomp (my @lines = <$ifh>);
 close $ifh;
@@ -16,6 +18,7 @@ close $ifh;
 # find brackets and semicolons on their own lines
 for (my $i = 0; $i < @lines; $i++) {
     if ($lines[$i] =~ m/^\s*\{\s*$/ or $lines[$i] =~ m/^\s*\}\s*$/ or $lines[$i] =~ m/^\s*\};\s*$/) {
+        # put contents of current line onto previous line, and delete current
         $lines[$i - 1] = $lines[$i - 1] . $lines[$i];
         splice(@lines, $i, 1);
     }
@@ -25,6 +28,7 @@ for (my $i = 0; $i < @lines; $i++) {
 for (my $i = 0; $i < @lines; $i++) {
     my $lindex = rindex($lines[$i], "{");
     if ($lindex > -1 and $lindex != (length($lines[$i]) - 1)) {
+        # remove the text after the open bracket and put it on a new line
         my $lstring = substr($lines[$i], $lindex + 1);
         splice(@lines, $i + 1, 0, $lstring);
         $lines[$i] = substr($lines[$i], 0, length($lines[$i]) - length($lstring));
