@@ -40,7 +40,7 @@ my $indentationLevel = 0;
 for (my $i = 0; $i < @lines; $i++) {
     # trim whitespace from both ends
     $lines[$i] =~ s/^\s+|\s+$//g;
-    my $isComment = substr($lines[$i], 0, 1) == "//";
+    my $isComment = substr($lines[$i], 0, 1) eq "//";
     my $nextIndentationLevel = ($lines[$i] =~ tr/\{//) - ($lines[$i] =~ tr/\}//);
     for (my $k = 0; $k < $indentationLevel; $k++) { substr($lines[$i], 0, 0) = "    "; }
     if (!$isComment) { $indentationLevel += $nextIndentationLevel; }
