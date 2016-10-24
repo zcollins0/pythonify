@@ -47,6 +47,8 @@ for (my $i = 0; $i < @lines; $i++) {
     # we use 4 spaces, like all civilized people
     for (my $k = 0; $k < $indentationLevel; $k++) { substr($lines[$i], 0, 0) = "    "; }
     if (!$isComment) { $indentationLevel += $nextIndentationLevel; }
+
+    # TODO: comment block handling
 }
 
 # build the wall
