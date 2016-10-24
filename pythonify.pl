@@ -70,7 +70,7 @@ for (my $i = 0; $i < @lines; $i++) {
     $lindex = ($lindex, $lscindex)[$lindex > $lscindex];
 
     # build a wall
-    my $wallIndex = 80;
+    my $wallIndex = 100;
     my $numSpaces = $wallIndex - $lindex;
     for (my $k = 0; $k < $numSpaces; $k++) { substr($lines[$i], $lindex, 0) = " "; }
 }
