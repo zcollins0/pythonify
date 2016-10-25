@@ -37,7 +37,6 @@ for (my $i = 0; $i < @lines; $i++) {
 
 #fix indentation
 my $indentationLevel = 0;
-
 for (my $i = 0; $i < @lines; $i++) {
     # trim whitespace from both ends
     $lines[$i] =~ s/^\s+|\s+$//g;
