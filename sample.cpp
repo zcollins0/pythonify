@@ -1,10 +1,9 @@
 #include <iostream>
-#include <thread>
 
 // Forward declare main
 int main();
 
-void bomb()
+void func()
 {
     // Just call the main function again
     main();
@@ -14,12 +13,8 @@ void bomb()
 
 int main()
 {
-    // Spawn 2 threads
-    std::thread first(bomb);
-    std::thread second(bomb);
-    // Wait for threads to finish (they never do)
-    first.join();
-    second.join();
+    // HELLO {
+    func();
     if (1) { int x = 0; };
     return 0;
 }
