@@ -37,6 +37,7 @@ for (my $i = 0; $i < @lines; $i++) {
 
 #fix indentation
 my $indentationLevel = 0;
+
 for (my $i = 0; $i < @lines; $i++) {
     # trim whitespace from both ends
     $lines[$i] =~ s/^\s+|\s+$//g;
@@ -60,6 +61,7 @@ for (my $i = 0; $i < @lines; $i++) {
     my $lobindex = rindex($lines[$i], "{");
     my $lcbindex = rindex($lines[$i], "}");
     my $lscindex = rindex($lines[$i], ";");
+    # if all the indices are -1, go to next iteration of loop
     if ($lobindex == -1 and $lcbindex == -1 and $lscindex == -1) { next; }
     
     # we are going to take the minimum of these three, so can't have any -1s floating around
