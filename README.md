@@ -3,6 +3,7 @@ pythonify
 
 Build a wall (of semicolons and brackets) and make your coworkers pay for it!
 This is a perl script that pushes brackets and semicolons far away from the rest of your code. It will also fix your indentation.
+Any code produced with pythonify should compile.
 
 ###Usage:
 - get a c, c++, or java file you want pythonified
